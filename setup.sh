@@ -252,7 +252,7 @@ eof
 
 setup_salat_vakt() {
 
-mkdir -p /opt/salat-vakt/
+mkdir -p /opt/salat-vakt/city/
 wget "https://raw.githubusercontent.com/ozdemir1419/salat-vakt/main/salat-vakt.sh"
 mv salat-vakt.sh /opt/salat-vakt/
 chmod +x /opt/salat-vakt/salat-vakt.sh
