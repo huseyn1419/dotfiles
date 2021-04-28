@@ -1,26 +1,26 @@
 #!/bin/sh
 
-# description: auto setup script to setup required programs after doing fresh install
-# tested against debian
+# description: auto setup script to setup required programs and configure after doing fresh install
 
 # set -x # for debugging
 
 # check if root
-if [ $(id -u) -ne 0 ] ; then echo "PLEASE RUN AS ROOT" ; exit 1 ; fi
+# if [ $(id -u) -ne 0 ] ; then echo "PLEASE RUN AS ROOT" ; exit 1 ; fi
 
 
 main() {
   while [ 1 ] ; do
     echo "----------------------------------------"
-    echo " 1 CONFIGURE APT"
-    echo " 2 CONFIGURE KEYBOARD"
-    echo " 3 CONFIGURE GRUB"
-    echo " 4 EXPAND BRIGHTNESS SETTINGS"
-    echo " 5 IMWHEEL"
-    echo "99 CONFIGURE VIM"
-    echo " Q QUIT"
+    echo " 1 configure apt"
+    echo " 2 configure keyboard"
+    echo " 3 configure grub"
+    echo " 4 expand brightness settings"
+    echo " 5 imwheel"
+    echo "10 salat vakt"
+    echo "99 configure vim"
+    echo " q quit"
     echo "----------------------------------------"
-    echo -n "SELECT OPTION:"
+    echo -n "select option:"
     read option
 
     case ${option} in
@@ -30,32 +30,36 @@ main() {
 
       1)
       configure_apt
-      echo "+ APT CONFIGURATION OK"
+      echo "+ apt configuration ok"
       ;;
 
       2)
       configure_keyboard f
-      echo "+ KEYBOARD CONFIGURATION OK"
+      echo "+ keyboard configuration ok"
       ;;
 
       3)
       configure_grub 2 en
-      echo "+ GRUB CONFIGURATION OK"
+      echo "+ grub configuration ok"
       ;;
 
       4)
       expand_brightness_settings
-      echo "+ BRIGHTNESS EXPAND OK"
+      echo "+ brightness expand ok"
       ;;
       
       5)
       imwheel
-      echo "+ IMWHEEL OK"
+      echo "+ imwheel ok"
       ;;
-
+      
+      10)
+      setup_salat_vakt
+      echo "+ salat vakt ok"
+      ;;
       99)
       configure_vim
-      echo "+ VIM CONFIGURATION OK"
+      echo "+ vim configuration ok"
       ;;
 
     esac
@@ -66,7 +70,7 @@ done
 
 
 
-# FUNCTIONS
+# functions
 
 
 
@@ -138,7 +142,7 @@ eof
 
 
 configure_keyboard() {
-  # FIRST TURKISH F, THEN TURKISH Q LAYOUT
+  # first turkish f, then turkish q layout
   sed -i 's/.*XKBLAYOUT.*/XKBLAYOUT="tr,tr"/' /etc/default/keyboard
 
   if [ $1 = "q" ]; then
@@ -197,11 +201,11 @@ configure_grub() {
 
 
     cat <<'eof' > /boot/grub/custom.cfg
-menuentry "REBOOT" {
+menuentry "reboot" {
   reboot
 }
 
-menuentry "SHUTDOWN" {
+menuentry "shutdown" {
   halt
 }
 eof
@@ -230,9 +234,9 @@ eof
 chmod +x /opt/expand-brightness/expand-brightness.sh
 chmod 644 /opt/expand-brightness/*
 chmod 755 /opt/expand-brightness/expand-brightness.sh
-ln -s /opt/expand-brightness/expand-brightness.sh /usr/bin/expand-brightness
+ln -s /opt/expand-brightness/expand-brightness.sh /usr/local/bin/expand-brightness
 
-cat <<'eof' > /usr/share/applications/expand-brightness.desktop
+cat <<'eof' > /usr/local/share/applications/expand-brightness.desktop
 [Desktop Entry]
 Type=Application
 Name=expand-brightness
@@ -246,7 +250,54 @@ eof
 
 }
 
+setup_salat_vakt() {
+
+mkdir -p /opt/salat-vakt/
+wget "https://raw.githubusercontent.com/ozdemir1419/salat-vakt/main/salat-vakt.sh"
+mv salat-vakt.sh /opt/salat-vakt/
+chmod +x /opt/salat-vakt/salat-vakt.sh
+chmod 644 /opt/salat-vakt/*
+chmod 755 /opt/salat-vakt/salat-vakt.sh
+ln -s /opt/salat-vakt/salat-vakt.sh /usr/local/bin/salat-vakt
+
+
+}
+
+
 imwheel() {
+cat <<'eof' > ~/.imwheelrc
+".*"
+  None,      Up,   Button4, 2
+  None,      Down, Button5, 2
+  Control_L, Up,   Control_L|Button4
+  Control_L, Down, Control_L|Button5
+  Shift_L,   Up,   Shift_L|Button4
+  Shift_L,   Dow¨n, Shift_L|Button5
+
+"^firefox$"
+  None,      Up,   Button4, 4
+  None,      Down, Button5, 4
+  Control_L, Up,   Control_L|Button4
+  Control_L, Down, Control_L|Button5
+  Shift_L,   Up,   Shift_L|Button4
+  Shift_L,   Down, Shift_L|Button5
+
+"^chromium$"
+  None,      Up,   Button4, 4
+  None,      Down, Button5, 4
+  Control_L, Up,   Control_L|Button4
+  Control_L, Down, Control_L|Button5
+  Shift_L,   Up,   Shift_L|Button4
+  Shift_L,   Down, Shift_L|Button5
+
+"^joplin$"
+  None,      Up,   Button4, 4
+  None,      Down, Button5, 4
+  Control_L, Up,   Control_L|Button4
+  Control_L, Down, Control_L|Button5
+  Shift_L,   Up,   Shift_L|Button4
+  Shift_L,   Down, Shift_L|Button5
+eof
 
 mkdir -p /opt/imwheel
 
@@ -258,9 +309,9 @@ eof
 chmod +x /opt/imwheel/imwheel.sh
 chmod 644 /opt/imwheel/*
 chmod 755 /opt/imwheel/imwheel.sh
-ln -s /opt/imwheel/imwheel.sh /usr/bin/imwheel-startup
+ln -s /opt/imwheel/imwheel.sh /usr/local/bin/imwheel-startup
 
-cat <<'eof' > /usr/share/applications/imwheel-startup.desktop
+cat <<'eof' > /usr/local/share/applications/imwheel-startup.desktop
 [Desktop Entry]
 Type=Application
 Name=imwheel-startup
