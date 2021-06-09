@@ -5,7 +5,7 @@
 # set -x # for debugging
 
 # check if root
-# if [ $(id -u) -ne 0 ] ; then echo "PLEASE RUN AS ROOT" ; exit 1 ; fi
+# if [ $(id -u) -ne 0 ] ; then echo "please run as root" ; exit 1 ; fi
 
 
 main() {
