@@ -100,7 +100,7 @@ eof
 deb      http://ftp.debian.org/debian/ unstable main contrib non-free
 #deb-src http://ftp.debian.org/debian/ unstable main contrib non-free
 
-# testing (bullseye)
+# testing (bookworm)
 deb      http://ftp.debian.org/debian/ testing main contrib non-free
 #deb-src http://ftp.debian.org/debian/ testing main contrib non-free
 
@@ -110,7 +110,7 @@ deb      http://ftp.debian.org/debian/ testing-updates main contrib non-free
 deb      http://security.debian.org/ testing-security main contrib non-free
 #deb-src http://security.debian.org/ testing-security main contrib non-free
 
-# stable (buster)
+# stable (bullseye)
 deb      http://ftp.debian.org/debian/ stable main contrib non-free
 #deb-src http://ftp.debian.org/debian/ stable main contrib non-free
 
@@ -120,10 +120,10 @@ deb      http://ftp.debian.org/debian stable-updates main contrib non-free
 deb      http://security.debian.org/debian-security stable/updates main contrib non-free
 #deb-src http://security.debian.org/debian-security stable/updates main contrib non-free
 
-deb      http://ftp.debian.org/debian buster-backports main contrib non-free
-#deb-src http://ftp.debian.org/debian buster-backports main contrib non-free
+deb      http://ftp.debian.org/debian bullseye-backports main contrib non-free
+#deb-src http://ftp.debian.org/debian bullseye-backports main contrib non-free
 
-# oldstable (stretch)
+# oldstable (buster)
 deb      http://ftp.debian.org/debian/ oldstable main contrib non-free
 #deb-src http://ftp.debian.org/debian/ oldstable main contrib non-free
 
@@ -133,8 +133,8 @@ deb      http://ftp.debian.org/debian/ oldstable-updates main contrib non-free
 deb      http://security.debian.org/debian-security oldstable/updates main contrib non-free
 #deb-src http://security.debian.org/debian-security oldstable/updates main contrib non-free
 
-deb      http://ftp.debian.org/debian stretch-backports main contrib non-free
-#deb-src http://ftp.debian.org/debian stretch-backports main contrib non-free
+deb      http://ftp.debian.org/debian buster-backports main contrib non-free
+#deb-src http://ftp.debian.org/debian buster-backports main contrib non-free
 eof
 
 }
