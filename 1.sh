@@ -10,7 +10,7 @@
 
 main() {
   while [ 1 ] ; do
-    echo "----------------------------------------"
+    echo "========================================"
     echo " 1 configure apt"
     echo " 2 configure keyboard"
     echo " 3 configure grub"
@@ -19,8 +19,8 @@ main() {
     echo "10 salat vakt"
     echo "99 configure vim"
     echo " q quit"
-    echo "----------------------------------------"
-    echo -n "select option:"
+    echo "========================================"
+    echo -n "select option: "
     read option
 
     case ${option} in
@@ -80,25 +80,31 @@ configure_apt() {
   cat <<'eof' > /etc/apt/preferences.d/99-pin
 package: *
 pin: release a=unstable
-pin-priority: 502
-
-package: *
-pin: release a=testing
 pin-priority: 503
 
 package: *
+pin: release a=testing
+pin-priority: 504
+
+package: *
 pin: release a=stable
-pin-priority: 501
+pin-priority: 502
 
 package: *
 pin: release a=oldstable
+pin-priority: 501
+
+package: *
+pin: release a=oldoldstable
 pin-priority: 500
+
 eof
 
   cat <<'eof' > /etc/apt/sources.list
 # unstable (sid)
 deb      http://ftp.debian.org/debian/ unstable main contrib non-free
 #deb-src http://ftp.debian.org/debian/ unstable main contrib non-free
+
 
 # testing (bookworm)
 deb      http://ftp.debian.org/debian/ testing main contrib non-free
@@ -109,6 +115,7 @@ deb      http://ftp.debian.org/debian/ testing-updates main contrib non-free
 
 deb      http://security.debian.org/ testing-security main contrib non-free
 #deb-src http://security.debian.org/ testing-security main contrib non-free
+
 
 # stable (bullseye)
 deb      http://ftp.debian.org/debian/ stable main contrib non-free
@@ -123,6 +130,7 @@ deb      http://security.debian.org/debian-security stable/updates main contrib 
 deb      http://ftp.debian.org/debian bullseye-backports main contrib non-free
 #deb-src http://ftp.debian.org/debian bullseye-backports main contrib non-free
 
+
 # oldstable (buster)
 deb      http://ftp.debian.org/debian/ oldstable main contrib non-free
 #deb-src http://ftp.debian.org/debian/ oldstable main contrib non-free
@@ -135,6 +143,18 @@ deb      http://security.debian.org/debian-security oldstable/updates main contr
 
 deb      http://ftp.debian.org/debian buster-backports main contrib non-free
 #deb-src http://ftp.debian.org/debian buster-backports main contrib non-free
+
+
+# oldoldstable (stretch)
+deb      http://ftp.debian.org/debian/ oldoldstable main contrib non-free
+#deb-src http://ftp.debian.org/debian/ oldstable main contrib non-free
+
+deb      http://ftp.debian.org/debian/ oldoldstable-updates main contrib non-free
+#deb-src http://ftp.debian.org/debian/ oldstable-updates main contrib non-free
+
+deb      http://security.debian.org/debian-security oldoldstable/updates main contrib non-free
+#deb-src http://security.debian.org/debian-security oldstable/updates main contrib non-free
+
 eof
 
 }
